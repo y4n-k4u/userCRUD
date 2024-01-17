@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package user;
+option go_package = "github.com/y4n-k4u/userCRUD/api/proto;userpb";
+
+service UserService {
+  rpc NewUser (NewUserRequest) returns (UserResponse) {}
+  rpc UpdateUser (UpdateUserRequest) returns (UserResponse);
+  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
+
+  rpc GetUsers (GetUsersRequest) returns (GetUsersResponse);
+  rpc GetUserByID (GetUserByIDRequest) returns (UserResponse);
+  rpc GetUserByUsername (GetUserByUsernameRequest) returns (UserResponse);
+}
+
+message NewUserRequest {
+  string email = 1;
+  string username = 2;
+  string password = 3;
+  bool admin = 4;
+}
+
+message UpdateUserRequest {
+  string id = 1;
+  string email = 2;
+  string username = 3;
+  string password = 4;
+  bool admin = 5;
+}
+
+message DeleteUserRequest {
+  string id = 1;
+}
+
+message GetUserByIDRequest {
+  string id = 1;
+}
+
+message GetUserByUsernameRequest {
+  string username = 1;
+}
+
+message GetUsersRequest {
+  uint32 page = 1;
+  uint32 page_size = 2;
+}
+
+message UserResponse {
+  string id = 1;
+  string email = 2;
+  string username = 3;
+  bool admin = 4;
+}
+
+message DeleteUserResponse {}
+
+message GetUsersResponse {
+  repeated UserResponse users = 1;
+}
